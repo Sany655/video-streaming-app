@@ -13,12 +13,9 @@ import { Bookmark, SaveAlt } from "@mui/icons-material";
 
 // Destructuring the api response
 const VideoCard = ({ video }) => {
-  useEffect(() => {
-    console.log(video);
-  }, [])
 
   return (
-    <Box>
+    // <Box>
       <Card
         sx={{
           width: { xs: "100%", sm: "358px", md: "320px" },
@@ -27,7 +24,11 @@ const VideoCard = ({ video }) => {
           maxWidth: "358px",
         }}
       >
-        <Link to={video.file_code ? `/video/${video.file_code}` : demoVideoUrl}>
+        <Link to={video.file_code ? `/video/${video.file_code}` : demoVideoUrl} sx={{
+              width: { xs: "100%", sm: "358px", md: "320px" },
+              height: 180,
+              maxWidth: "358px",
+            }}>
           <CardMedia
             component="img"
             image={video.single_img || video.splash_img}
@@ -41,29 +42,32 @@ const VideoCard = ({ video }) => {
           />
           {/*Optional Chaining - Returns Undifined instead of error  */}
         </Link>
-        <CardContent sx={{ backgroundColor: "#1E1E1E", height: "106px" }}>
+        <CardContent sx={{ backgroundColor: "#1E1E1E", height: "106px", display: "flex", flexDirection: "column", justifyContent: "end" }}>
           <Link to={video.file_code ? `/video/${video.file_code}` : demoVideoUrl}>
             <Typography variant="subtitle1" fontWeight="bold" color="#FFF">
               {video.title}
             </Typography>
           </Link>
-          <Typography variant="subtitle2" color="gray">
-            {video.uploaded || demoChannelTitle}
-            <CheckCircleIcon
-              sx={{ fontSize: "12px", color: "gray", ml: "5px" }}
-            />
-          </Typography>
-          <a href={video.download_url} target="_blank">
-            <IconButton aria-label="save" color="primary">
-              <SaveAlt />
-            </IconButton>
-          </a>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems:'center' }}>
+
+            <Typography variant="subtitle2" color="gray">
+              {video.uploaded || demoChannelTitle}
+              <CheckCircleIcon
+                sx={{ fontSize: "12px", color: "gray", ml: "5px" }}
+              />
+            </Typography>
+            <a href={video.download_url} target="_blank">
+              <IconButton aria-label="save" color="primary">
+                <SaveAlt />
+              </IconButton>
+            </a>
+          </div>
           {/* <IconButton aria-label="like" color="primary">
             <Bookmark />
           </IconButton> */}
         </CardContent>
       </Card>
-    </Box>
+    // </Box>
   );
 };
 
