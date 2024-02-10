@@ -1,25 +1,25 @@
 import React, { useEffect } from "react";
 import { Stack, Box } from "@mui/material";
-import { VideoCard, ChannelCard, Loader } from "./";
+import VideoCard from "./VideoCard";
+import Loader from "./Loader";
 
 const Videos = ({ videos, direction }) => {
   
   if (!videos) return <Loader />;
-  else if(videos.length == 0) return null;
-  else return (
+  else if(videos.length > 0) return (
     <Stack
       direction={direction || "row"}
       flexWrap="wrap"
-      // justifyContent="start"
-      // alignItems="start"
       gap={2}
+      justifyContent={'center'}
     >
       {videos.map((item, index) => (
-        <Box key={index}>
-          {item.file_code && <VideoCard video={item} />}
-        </Box>
+        <VideoCard video={item} key={index}/>
       ))}
     </Stack>
+  );
+  else return (
+    <h1>No video available!</h1>
   );
 };
 

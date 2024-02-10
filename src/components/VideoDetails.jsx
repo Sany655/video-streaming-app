@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import ReactPlayer from "react-player";
-import { Typography, Box, Stack } from "@mui/material";
+import { useParams } from "react-router-dom";
+import { Typography, Box, Stack, Button } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { Videos, Loader } from "./";
-import { BASE_URL, VIDEO_BASE_URL, fetchFromAPI } from "../utils/fetchFromAPI";
 import axios from "axios";
+import Videos from "./Videos";
+import Loader from "./Loader";
+import { SaveAlt } from "@mui/icons-material";
 
 const VideoDetails = () => {
   const [videoDetail, setVideoDetail] = useState(null);
@@ -13,15 +13,15 @@ const VideoDetails = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    fetchFromAPI(
-      `api/file/info?key=355458djyp1cm54by8ekvj&&file_code=${id}`
-    ).then((res1) => {
-      setVideoDetail(res1.result[0]);
-      axios.get(`${BASE_URL}/api/search/videos?key=355458djyp1cm54by8ekvj&search_term=${res1.result[0].title.split(" ")[0]}`).then(res2 => {
-        console.log(res1.result[0].title.split(" ")[0], res2.data.result);
-        setVideos(res2.data.result)
+    axios.get(`/api/file/info?key=${process.env.REACT_APP_API_KEY}&&file_code=${id}`)
+      .then((res1) => {
+        setVideoDetail(res1.data.result[0]);
+        axios.get(`api/search/videos?key=${process.env.REACT_APP_API_KEY}&search_term=${res1.data.result[0].title.split(" ")[0]}`)
+          .then(res2 => {
+            setVideos(res2.data.result)
+          })
+          .catch(err => console.log(err.message))
       }).catch(err => console.log(err.message))
-    }).catch(err => console.log(err.message))
   }, [id]);
 
   if (!videoDetail) return <Loader />;
@@ -35,10 +35,8 @@ const VideoDetails = () => {
       <Stack direction={{ xs: "column", md: "row" }}>
         <Box flex={1}>
           <Box sx={{ width: "100%", position: "sticky", top: "86px" }}>
-            <iframe className="react-player" style={{ margin: "auto" }} width="640px" height="460px" src={"https://d0000d.com" + protected_embed} scrolling="no" frameborder="0" allowFullScreen={true}></iframe>
-            <Typography color="#fff" variant="h5" fontWeight="bold" p={2}>
-              {title}
-            </Typography>
+            <iframe className="react-player" style={{ margin: "auto" }} width="640px" height="460px" src={"https://d0000d.com" + protected_embed} scrolling="no" frameBorder="0" allowFullScreen={true}></iframe>
+            <Typography variant={"h5"} color="#fff" fontWeight="bold" p={2}> {title} </Typography>
             <Stack
               direction="row"
               justifyContent="space-between"
@@ -47,7 +45,7 @@ const VideoDetails = () => {
               px={2}
             >
               <Typography
-                variant={{ sm: "subtitle1", md: "h6" }}
+                variant="subtitle1"
                 color="#fff"
               >
                 {uploaded}
@@ -56,6 +54,9 @@ const VideoDetails = () => {
                 />
               </Typography>
               <Stack direction="row" gap="20px" alignItems="center">
+                <a href={process.env.REACT_APP_DOWNLOAD_BASE_URL+filecode} target="_blank" >
+                  <Button variant="outlined" color="primary">Download</Button>
+                </a>
                 <Typography variant="body1" sx={{ opacity: 0.7 }}>
                   {last_view ? last_view + " Last views" : null}
                 </Typography>
@@ -66,14 +67,14 @@ const VideoDetails = () => {
             </Stack>
           </Box>
         </Box>
-          <Box
-            px={2}
-            py={{ md: 1, xs: 5 }}
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Videos videos={videos} direction="column" />
-          </Box>
+        <Box
+          px={2}
+          py={{ md: 1, xs: 5 }}
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Videos videos={videos} direction="column" />
+        </Box>
       </Stack>
     </Box>
   )

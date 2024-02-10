@@ -1,23 +1,21 @@
 import { useState, useEffect } from "react";
 import { Typography, Box } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { fetchFromAPI } from "../utils/fetchFromAPI";
-import { Videos } from "./";
+import axios from "axios";
+import Videos from "./Videos";
 
 const SearchFeed = () => {
   const [videos, setVideos] = useState([]);
   const { searchTerm } = useParams();
-  console.log("Inside Search Feed...");
-  console.log(videos, searchTerm);
 
   useEffect(() => {
     setVideos([]);
-    fetchFromAPI(`/api/search/videos?key=355458djyp1cm54by8ekvj&search_term=${searchTerm}`)
+    axios.get(`/api/search/videos?key=${process.env.REACT_APP_API_KEY}&search_term=${searchTerm}`)
     .then((res) => {
-      setVideos(res.result)
+      setVideos(res.data.result)
     }).catch(err => console.log(err.message));
 
-  }, [searchTerm]);
+  }, []);
 
   return (
     <Box p={2} minHeight="95vh">

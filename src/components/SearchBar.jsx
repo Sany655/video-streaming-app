@@ -12,7 +12,6 @@ const SearchBar = () => {
     event.preventDefault();
 
     if (searchTerm) {
-      console.log("Navigating to Search URL - ", `/search/${searchTerm}`);
       navigate(`/search/${searchTerm}`);
 
       setSearchTerm("");
