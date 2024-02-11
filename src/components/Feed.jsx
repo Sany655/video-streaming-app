@@ -6,23 +6,24 @@ import axios from "axios";
 import ErrorPage from "./ErrorPage";
 
 const Feed = () => {
-  const [videos, setVideos] = useState([]);
+  const [videos, setVideos] = useState(null);
   const [error, seterror] = useState(null)
   const vidRef = useRef();
   useEffect(() => {
-    setVideos([]);
     getData(1);
   }, []);
 
-  const getData = (res) => {
+  const getData = (res, option = '') => {
     axios.get(`/api/file/list?key=${process.env.REACT_APP_API_KEY}&per_page=12&page=${res}`)
       .then(({ data }) => {
         setVideos(data.result);
-        vidRef.current.scrollIntoView({ behavior: "smooth" })
+        if (option) {
+          vidRef.current.scrollIntoView({ behavior: "smooth" })
+        }
       }
       ).catch(err => {
         seterror(err.message)
-        setVideos([])
+        setVideos(null)
       })
   }
 
@@ -31,10 +32,10 @@ const Feed = () => {
     return (
       <>
         <div ref={vidRef}>
-          <Videos videos={videos.files} vidref={vidRef} />
+          <Videos videos={videos?.files} vidref={vidRef} />
         </div>
         <Paper style={{ background: "#c9c9c9", padding: 15, marginTop: 50 }}>
-          <Pagination count={videos.total_pages} onChange={(e, r) => getData(r)} />
+          <Pagination count={videos?.total_pages} onChange={(e, r) => getData(r,1)} />
         </Paper>
       </>
     )

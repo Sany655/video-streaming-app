@@ -19,7 +19,7 @@ const Videos = ({ videos, direction }) => {
     </Stack>
   );
   else return (
-    <h1>No video available!</h1>
+    <h1 style={{color:'white'}}>No video available!</h1>
   );
 };
 

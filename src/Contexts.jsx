@@ -6,7 +6,10 @@ function Contexts({ children }) {
     const [saved, setSaved] = useState([])
     const [count, setCount] = useState(0)
     useEffect(() => {
-        const savedVideosOnLocalStorage = JSON.parse(localStorage.getItem('saved'));
+        var savedVideosOnLocalStorage = JSON.parse(localStorage.getItem('saved'));
+        if (!savedVideosOnLocalStorage) {
+            savedVideosOnLocalStorage = [];
+        }
         setSaved(savedVideosOnLocalStorage)
         setCount(savedVideosOnLocalStorage?.length)
     }, [])
