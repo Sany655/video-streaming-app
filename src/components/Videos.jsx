@@ -12,6 +12,7 @@ const Videos = ({ videos, direction }) => {
       flexWrap="wrap"
       gap={2}
       justifyContent={'center'}
+      sx={{backgroundColor:'black'}}
     >
       {videos.map((item, index) => (
         <VideoCard video={item} key={index}/>
