@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Typography, Card, CardContent, CardMedia, IconButton } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { SaveAlt } from "@mui/icons-material";
-
+import { Bookmark, SaveAlt } from "@mui/icons-material";
+import { MyContext } from "../Contexts";
 
 const VideoCard = ({ video }) => {
+  const { saveVid } = useContext(MyContext)
+  
   return (
     <Card
       sx={{
@@ -33,7 +35,7 @@ const VideoCard = ({ video }) => {
         />
         {/*Optional Chaining - Returns Undifined instead of error  */}
       </Link>
-      <CardContent sx={{ backgroundColor: "#1E1E1E", height: "106px", display: "flex", flexDirection: "column", justifyContent: "end" }}>
+      <CardContent sx={{ backgroundColor: "#1E1E1E", height: "106px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
         <Link to={video.file_code ? `/video/${video.file_code}` : null}>
           <Typography variant="subtitle1" fontWeight="bold" color="#FFF">
             {video.title}
@@ -47,13 +49,11 @@ const VideoCard = ({ video }) => {
               sx={{ fontSize: "12px", color: "gray", ml: "5px" }}
             />
           </Typography>
-          <a href={process.env.REACT_APP_DOWNLOAD_BASE_URL+video.file_code} target="_blank" >
-            <SaveAlt color="primary" />
-          </a>
+          <div>
+            <SaveAlt color="primary" style={{ cursor: 'pointer', marginLeft: '5px' }} onClick={() => window.location.href = process.env.REACT_APP_DOWNLOAD_BASE_URL + video.file_code} />
+            <Bookmark color="primary" style={{ cursor: 'pointer', marginLeft: '5px' }} onClick={() => saveVid(video)} />
+          </div>
         </div>
-        {/* <IconButton aria-label="like" color="primary">
-            <Bookmark />
-          </IconButton> */}
       </CardContent>
     </Card>
   );

@@ -1,9 +1,11 @@
-import React from "react";
-import { Button, Container, Stack, Typography } from "@mui/material";
+import React, { useContext } from "react";
+import { Badge, Button, Container, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import { MyContext } from "../Contexts";
 
 const Navbar = () => {
+  const { count } = useContext(MyContext)
   return (
     <Container maxWidth="xl"
       style={{
@@ -11,8 +13,8 @@ const Navbar = () => {
         top: 0,
         paddingTop: 15,
         paddingBottom: 15,
-        borderBottom:"5px solid rgb(201 201 201)",
-        background:"black"
+        borderBottom: "5px solid rgb(201 201 201)",
+        background: "black"
       }}>
       <Stack
         direction={{ xs: 'column', sm: 'row' }}
@@ -20,10 +22,12 @@ const Navbar = () => {
         justifyContent={'space-between'}
       >
         <Link to="/" style={{}}>
-          <img src={__dirname+"logo.png"} alt="logo" height={45} />
+          <img src={__dirname + "logo.png"} alt="logo" height={45} />
         </Link>
-        <Stack flex={1} direction={'row'} justifyContent={'end'} alignItems={'center'} gap={4}>
-          {/* <Link ><Typography variant="body">BOOKMARKED VIDEOS</Typography></Link> */}
+        <Stack direction={{ sm: 'column', md: 'row' }} flex={1} justifyContent={'end'} alignItems={'center'} gap={4}>
+          <Badge color="primary" badgeContent={count}>
+            <Link to={`/saved`}><Typography color={'white'} variant="body1" >SAVED VIDEOS</Typography></Link>
+          </Badge>
           <SearchBar />
         </Stack>
       </Stack>

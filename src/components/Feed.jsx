@@ -18,14 +18,12 @@ const Feed = () => {
     axios.get(`/api/file/list?key=${process.env.REACT_APP_API_KEY}&per_page=12&page=${res}`)
       .then(({ data }) => {
         setVideos(data.result);
+        vidRef.current.scrollIntoView({ behavior: "smooth" })
       }
       ).catch(err => {
         seterror(err.message)
         setVideos([])
       })
-      .finally(() => {
-        vidRef.current.scrollIntoView({ behavior: "smooth" })
-      });
   }
 
 
