@@ -8,7 +8,7 @@ function Contexts({ children }) {
     useEffect(() => {
         const savedVideosOnLocalStorage = JSON.parse(localStorage.getItem('saved'));
         setSaved(savedVideosOnLocalStorage)
-        setCount(savedVideosOnLocalStorage.length)
+        setCount(savedVideosOnLocalStorage?.length)
     }, [])
 
     function deleteSaved(video) {
