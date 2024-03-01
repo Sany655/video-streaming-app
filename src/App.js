@@ -14,7 +14,7 @@ const App = () => {
   axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
   return (
     <Contexts>
-      <Box sx={{ backgroundColor: "#000" }}>
+      <Box>
         <Navbar />
         <Container maxWidth="xl" sx={{ paddingY: '20px' }}>
           <Routes>
