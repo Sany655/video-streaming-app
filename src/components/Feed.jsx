@@ -34,7 +34,8 @@ const Feed = () => {
     return (
       <>
         <Videos videos={videos?.files} />
-        <Paper style={{  padding: 15, marginTop: 50 }}>
+        <iframe style={{ width: '100%' }} src="https://www.profitablegatecpm.com/ue6w6z0j5e?key=fd1b847443c588ab4c5e6147fab19708"></iframe>
+        <Paper style={{  padding: 15, marginY: 100 }}>
           <Pagination count={videos?.total_pages} onChange={(e, r) => getData(r, 1)} />
         </Paper>
       </>
