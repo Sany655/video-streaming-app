@@ -13,12 +13,14 @@ const Feed = () => {
     getData(1);
   }, []);
 
-  const getData = (res, option = '') => {
+  const getData = (res, option = null) => {
     axios.get(`/api/file/list?key=${process.env.REACT_APP_API_KEY}&per_page=12&page=${res}`)
       .then(({ data }) => {
         setVideos(data.result);
-        if (option) {
-          vidRef.current.scrollIntoView({ behavior: "smooth" })
+        if (option != null) {
+          document.body.scrollTop = 0; // For Safari
+          document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+
         }
       }
       ).catch(err => {
@@ -31,11 +33,9 @@ const Feed = () => {
   if (!error) {
     return (
       <>
-        <div ref={vidRef}>
-          <Videos videos={videos?.files} vidref={vidRef} />
-        </div>
-        <Paper style={{ background: "#c9c9c9", padding: 15, marginTop: 50 }}>
-          <Pagination count={videos?.total_pages} onChange={(e, r) => getData(r,1)} />
+        <Videos videos={videos?.files} />
+        <Paper style={{  padding: 15, marginTop: 50 }}>
+          <Pagination count={videos?.total_pages} onChange={(e, r) => getData(r, 1)} />
         </Paper>
       </>
     )

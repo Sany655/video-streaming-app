@@ -16,7 +16,7 @@ const App = () => {
     <Contexts>
       <Box>
         <Navbar />
-        <Container maxWidth="xl" sx={{ paddingY: '20px',backgroundColor: "#000" }} >
+        <Container maxWidth="xl" sx={{ paddingY: '20px' }} >
           <Routes>
             <Route path="/" exact element={<Feed />} />
             <Route path="/video/:id" element={<VideoDetails />} />
