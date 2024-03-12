@@ -65,7 +65,7 @@ const AuthComponent = ({ setAuth }) => {
 
 function Dashboard() {
   const [auth, setAuth] = useState(false)
-  if (!auth) {
+  if (auth) {
     return (
       <>
         <h1 style={{color:'white'}}>Dashboard</h1>

@@ -32,7 +32,7 @@ const FireVideos = () => {
                                                         alt={video.name}
                                                     />
                                                     <CardContent>
-                                                        <Typography variant="h6">{video.name.substring(0, 10) + "..."}</Typography>
+                                                        <Typography variant="h6">{video.name.substring(0, 25) + "..."}</Typography>
                                                         <Typography variant="body2" color="lightgray">
                                                             Uploaded: {video.createdAt?.toDate().toLocaleString()}
                                                         </Typography>
