@@ -15,7 +15,7 @@ const VideoDetails = () => {
   useEffect(() => {
     axios.get(`/api/file/info?key=${process.env.REACT_APP_API_KEY}&&file_code=${id}`)
       .then((res1) => {
-        setVideoDetail(res1.data.result[0]);
+        setVideoDetail(res1.data?.result[0]);
         axios.get(`api/search/videos?key=${process.env.REACT_APP_API_KEY}&search_term=${res1.data.result[0].title.split(" ")[0]}`)
           .then(res2 => {
             setVideos(res2.data.result)

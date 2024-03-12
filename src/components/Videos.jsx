@@ -4,21 +4,24 @@ import VideoCard from "./VideoCard";
 import Loader from "./Loader";
 
 const Videos = ({ videos, direction }) => {
-  
+
   if (!videos) return <Loader />;
-  else if(videos.length > 0) return (
-    <Stack
-      direction={direction || "row"}
-      flexWrap="wrap"
-      gap={4}
-    >
-      {videos.map((item, index) => (
-        <VideoCard video={item} key={index}/>
-      ))}
-    </Stack>
+  else if (videos.length > 0) return (
+    <>
+      <h1>Videos with adds</h1>
+      <Stack
+        direction={direction || "row"}
+        flexWrap="wrap"
+        gap={4}
+      >
+        {videos.map((item, index) => (
+          <VideoCard video={item} key={index} />
+        ))}
+      </Stack>
+    </>
   );
   else return (
-    <h1 style={{color:'white'}}>No video available!</h1>
+    <h1 style={{ color: 'white' }}>No video available!</h1>
   );
 };
 

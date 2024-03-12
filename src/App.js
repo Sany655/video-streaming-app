@@ -8,6 +8,8 @@ import SearchFeed from "./components/SearchFeed";
 import Navbar from "./components/Navbar";
 import SavedVideos from "./components/SavedVideos";
 import Contexts from "./Contexts";
+import Dashboard from "./components/admin/Dashboard";
+import FireVideoPlayer from "./components/FireVideoPlayer";
 
 const App = () => {
   axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
@@ -21,8 +23,10 @@ const App = () => {
           <Routes>
             <Route path="/" exact element={<Feed />} />
             <Route path="/video/:id" element={<VideoDetails />} />
+            <Route path="/fvideo/:id" element={<FireVideoPlayer />} />
             <Route path="/search/:searchTerm" element={<SearchFeed />} />
             <Route path="/saved" element={<SavedVideos />} />
+            <Route path="/admin" element={<Dashboard />} />
           </Routes>
           <iframe style={{ width: '100%' }} src="https://www.profitablegatecpm.com/rbj3gfpesb?key=73c7d7295ee73d2c93b113e7f3afc094"></iframe>
         </Container>
